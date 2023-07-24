@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "411598175502",
+    "project_id": "monkhood-47faf",
+    "storage_bucket": "monkhood-47faf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:411598175502:android:8b1eb8b167629491666b5f",
+        "android_client_info": {
+          "package_name": "com.example.monkhood"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "411598175502-4mq23mp656qtgor87n3qd2e0ugi8ddis.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKGfwyBg1iV0_NNQGaYn7jgSSFnrjrMT8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "411598175502-4mq23mp656qtgor87n3qd2e0ugi8ddis.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
