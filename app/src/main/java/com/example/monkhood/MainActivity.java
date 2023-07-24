@@ -1,5 +1,6 @@
 package com.example.monkhood;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,8 +22,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -111,12 +115,36 @@ public class MainActivity extends AppCompatActivity {
         // Save the user details to Firebase Realtime Database
         usersRef.child(userId).setValue(user);
 
-// Start the Firebase activity
-        startActivity(intent);
 
+        // Get a reference to the "users" node in the database
+        usersRef = FirebaseDatabase.getInstance().getReference("users");
+
+        // Add a ValueEventListener to read data from the "users" node
+        usersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                    // Retrieve user details from the DataSnapshot
+                    String name = userSnapshot.child("name").getValue(String.class);
+                    String email = userSnapshot.child("email").getValue(String.class);
+                    String phoneNumber = userSnapshot.child("phoneNumber").getValue(String.class);
+
+                    // Create a User object using the retrieved data
+                    User user = new User(name, email, phoneNumber);
+
+                    // Do something with the user object, e.g., display it in the UI
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        // Start the Firebase activity
+        startActivity(intent);
     }
 
-    @Override
+            @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == RESULT_OK) {
