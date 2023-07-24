@@ -36,6 +36,7 @@ public class Firebase extends AppCompatActivity {
 
         // Get a reference to the "users" node in the database
         usersRef = FirebaseDatabase.getInstance().getReference("users");
+        usersRef.push().getKey();
 
         // Add a ValueEventListener to read data from the "users" node
         usersRef.addValueEventListener(new ValueEventListener() {
@@ -79,5 +80,43 @@ public class Firebase extends AppCompatActivity {
                         Toast.makeText(Firebase.this,"Unable to delete data at the moment",Toast.LENGTH_LONG).show();
                     }
                 });
+
+                        // Do something with the user object, e.g., display it in the UI
+                        nameEditText.setText("");
+                        emailEditText.setText("");
+                        phoneNumberEditText.setText("");
+    }
+
+
+    public void updateData(View view) {
+        // getting the most recent user's userID
+        String userID = usersRef.push().getKey();
+
+        // reference
+        DatabaseReference userRefForID = usersRef.child(userID);
+
+        // example of dummy updated data
+        String newName = "updated User";
+        String newEmail = "new.user@example.com";
+        String newPhoneNumber = "1234567890";
+
+        // updating the new values using setValue
+        userRefForID.child("name").setValue(newName);
+        userRefForID.child("email").setValue(newEmail);
+        userRefForID.child("phoneNumber").setValue(newPhoneNumber)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(Firebase.this,"Data successfully updated for the new user in Firebase Realtime Database",Toast.LENGTH_LONG).show();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        // handling error
+                    }
+                });
+
+        Toast.makeText(Firebase.this,"updated data",Toast.LENGTH_LONG).show();
     }
 }

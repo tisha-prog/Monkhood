@@ -39,7 +39,7 @@
         android:layout_height="42dp"
         android:layout_marginBottom="184dp"
         android:onClick="deleteAll"
-        android:text="Clear All"
+        android:text="Delete"
         android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
